@@ -1,3 +1,4 @@
+import java.time.Instant;
 import java.util.*;
 
 /**
@@ -19,12 +20,14 @@ public class PassagerCalls implements Runnable {
     @Override
     public void run() {
 
+        Random random = new Random(Instant.now().getEpochSecond());
         Scanner scanner = new Scanner(System.in);
         for (int i=0;i<CountCalls;i++){
-            System.out.println("Enter number of current floor");
-            int start= scanner.nextInt();
-            System.out.println("Enter number of final floor");
-            int end = scanner.nextInt();
+            int start = random.nextInt(0, control.count_floors + 1);
+            int end = random.nextInt(0, control.count_floors + 1);
+            while (start == end) {
+                end = random.nextInt(0, control.count_floors + 1);
+            }
 
             int dir = start>end ? -1:1;
             control.FixCalls(new CallData(start,end,dir));
@@ -38,6 +41,7 @@ public class PassagerCalls implements Runnable {
 
 
         }
+        ElevatorControl.CallsOver = true;
 
     }
 }
