@@ -9,8 +9,10 @@ public class ElevatorControl {
     Elevator el1;
     Elevator el2;
     List<Map<Integer,ArrayDeque<Integer>>> CallsOnFlours;
-    static List<CallData> DequeCalls;
+    static List<CallData> DequeCalls = new ArrayList<>();
     int count_floors;
+
+    static boolean CallsOver = false;
 
     /**
 
@@ -24,6 +26,7 @@ public class ElevatorControl {
         CallsOnFlours = new ArrayList<>(count_floors+1);
         el1 = new Elevator();
         el2 = new Elevator();
+        CallsOver = false;
         Map<Integer,ArrayDeque<Integer>> DequeCalls =new HashMap<>();
         for (int i=0;i<count_floors+1;i++){
             DequeCalls.put(1,new ArrayDeque<>());
@@ -75,7 +78,7 @@ public class ElevatorControl {
             }
         }
         else {
-            ArrayDeque<Integer> WhereToGo;
+            ArrayDeque<Integer> WhereToGo = new ArrayDeque<>();
             if (CallsOnFlours.get(el.CurrentFloor).get(1).size() >= CallsOnFlours.get(el.CurrentFloor).get(-1).size()) {
                 el.Direction = 1;
                 WhereToGo = CallsOnFlours.get(el.CurrentFloor).get(1);
@@ -84,9 +87,10 @@ public class ElevatorControl {
                 el.Direction = -1;
                 WhereToGo = CallsOnFlours.get(el.CurrentFloor).get(-1);
             }
-            while (!(WhereToGo.isEmpty())){
+            while ((!WhereToGo.isEmpty())){
                 el.SetStops.remove(el.CurrentFloor);
                 System.out.println("A person on " +el1.CurrentFloor+ " go to elevator " + n);
+
                 int NextPersonStop=WhereToGo.poll();
 
                 for (int i = 0;i < DequeCalls.size(); i++) {
@@ -130,14 +134,14 @@ public class ElevatorControl {
             else {
                 el.Direction = 0;
             }
-            System.out.println("Elevator " +n + " go down from floor = " + el.CurrentFloor);
+            System.out.println("Elevator " +n + " go down from floor " + el.CurrentFloor);
         } else if (el.Direction == 1){
             if (el.CurrentFloor < count_floors) {
                 el.CurrentFloor+=1;
             } else {
                 el.Direction = 0;
             }
-            System.out.println("Elevator " +n + " go down from floor = " + el.CurrentFloor);
+            System.out.println("Elevator " +n + " go up from floor " + el.CurrentFloor);
         }
 
 
