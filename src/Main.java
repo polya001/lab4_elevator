@@ -17,8 +17,6 @@ public class Main {
         calls.join();
         elevatorMovement.join();
 
-        
-
 
     }
 }
