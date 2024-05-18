@@ -12,11 +12,11 @@ public class ElevatorMovement implements Runnable{
     }
     @Override
     public void run() {
-        while (!(Control.el1.SetStops.isEmpty()) && !(Control.el2.SetStops.isEmpty())){
+        while (!ElevatorControl.CallsOver || (!(Control.el1.SetStops.isEmpty() && Control.el2.SetStops.isEmpty()))){
 
             Control.Movement();
             try {
-                Thread.sleep(1100);            //передвижение на 1 этаж
+                Thread.sleep(1000);            //передвижение на 1 этаж
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
