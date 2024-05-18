@@ -1,10 +1,9 @@
 import java.util.ArrayDeque;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class Elevator {
-    int CurrentFloor,FinalFloor;  //FinalFloor - макс. этаж по текущему напр.,
-                                                  
+    int CurrentFloor,FinalFloor;
+
     int Direction;  //-1 - down, 1 - up, 0 - stands still
 
     ArrayDeque<Integer> SetStops;
